@@ -80,12 +80,6 @@ StashTest >> prepareMethodsInTestClass [
 ]
 
 { #category : #test }
-StashTest >> testAddObjectWithDepth [
-
-	self testRestoreCompilationChanges
-]
-
-{ #category : #test }
 StashTest >> testRestoreClassState [
 
 	| ss aCollection originalArraySize originalArray originalTestVal |
@@ -94,8 +88,8 @@ StashTest >> testRestoreClassState [
 	originalArray := aCollection array.
 	originalArraySize := originalArray size.
 	ss := Stash new.
-	ss basicAddObject: aCollection.
-	ss basicAddObject: self class.
+	ss basicStash: aCollection.
+	ss basicStash: self class.
 	aSharedVariableForTests := Time now.
 	1 to: 20 do: [ :i | aCollection add: i ].
 	self deny: aCollection array size == originalArraySize.
@@ -114,7 +108,7 @@ StashTest >> testRestoreCompilationChanges [
 	self prepareMethodsInTestClass.
 	ss := Stash new.
 	ss
-		addObject: StashCollectionForTests
+		stash: StashCollectionForTests
 		withDepth: 4 "This should cover the method dictionary".
 
 	testObject := StashCollectionForTests new.
@@ -148,7 +142,7 @@ StashTest >> testRestoreObjectState [
 	originalArray := aCollection array.
 	originalArraySize := originalArray size.
 	ss := Stash new.
-	ss basicAddObject: aCollection.
+	ss basicStash: aCollection.
 	1 to: 20 do: [ :i | aCollection add: i ].
 	self deny: aCollection array size == originalArraySize.
 	self deny: aCollection array == originalArray.
@@ -156,4 +150,10 @@ StashTest >> testRestoreObjectState [
 	self assert: aCollection isEmpty.
 	self assert: aCollection array size equals: originalArraySize.
 	self assert: aCollection array == originalArray
+]
+
+{ #category : #test }
+StashTest >> testStashWithDepth [
+
+	self testRestoreCompilationChanges
 ]
