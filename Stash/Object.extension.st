@@ -1,7 +1,7 @@
 Extension { #name : #Object }
 
 { #category : #'*Stash' }
-Object class >> defaultStashingDepth [
+Object >> defaultStashingDepth [
 
 	"Subclasses must overwrite this for a more appropriate stashing depth"
 
