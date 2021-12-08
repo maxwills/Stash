@@ -24,7 +24,7 @@ ss := Stash new.
 "do modifications on your object".
 aCollection add:1] ensure: [ ss restore].
 	
-"your object should"
+"your object state should be recovered"
 self assert: aCollection isEmpty
 ```
 
